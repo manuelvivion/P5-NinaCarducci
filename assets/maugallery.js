@@ -50,7 +50,7 @@
   };
   $.fn.mauGallery.listeners = function(options) {
     $(".gallery-item").on("click", function() {
-      console.log('click');
+     
       if (options.lightBox && $(this).prop("tagName") === "IMG") {
         $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
       } else {
@@ -147,16 +147,21 @@
         });
       }
       let index = 0,
-        next = null;
+      next = null;
 
       $(imagesCollection).each(function(i) {
         if ($(activeImage).attr("src") === $(this).attr("src")) {
-          index = i ;
+          index = i ; // index = i : on récupère l'index de l'image courante dans le tableau des images filtrées par la catégorie
         }
       });
-      next =
+
+      //Correction bug 15/2/24 : next prenait la valeur courante de l'index => donc le caroussel restait au même endroit
+      /* next =
         imagesCollection[index] ||
-        imagesCollection[imagesCollection.length - 1];
+        imagesCollection[imagesCollection.length - 1]; */
+      // nouvelle assignation (15/2/24) : si l'index est à zéro, le précédent deviendra le dernier de la liste, sinon on décrémente d'1 l'index
+      next = index === 0?imagesCollection[imagesCollection.length - 1]:imagesCollection[index-1] ;
+
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     nextImage() {
@@ -193,7 +198,13 @@
           index = i;
         }
       });
-      next = imagesCollection[index] || imagesCollection[0];
+
+      //Correction bug 15/2/24 : next prenait la valeur courante de l'index => donc le caroussel restait au même endroit
+      /* next = imagesCollection[index] || imagesCollection[0]; */
+      
+      // nouvelle assignation (15/2/24) : si l'index est égale à la quantité d'images moins 1(on est au bout de la liste?)), le suivant deviendra le premier de la liste, sinon on incrémente d'1 l'index
+      next = index === imagesCollection.length - 1?imagesCollection[0]:imagesCollection[index+1] ;
+
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     createLightBox(gallery, lightboxId, navigation) {
@@ -223,7 +234,7 @@
       var tagItems =
         '<li class="nav-item"><span class="nav-link active active-tag"  data-images-toggle="all">Tous</span></li>';
       $.each(tags, function(index, value) {
-        tagItems += `<li class="nav-item active">
+        tagItems += `<li class="nav-item ">
                 <span class="nav-link"  data-images-toggle="${value}">${value}</span></li>`;
       });
       var tagsRow = `<ul class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
@@ -241,7 +252,7 @@
         return;
       }
       $(".active-tag").removeClass("active active-tag");
-      $(this).addClass("active-tag");
+      $(this).addClass("active-tag active"); //correction le 15/2/24 : la classe "active" n'était pas attribué au nav-link => pas de surbrillance du lien courant
 
       var tag = $(this).data("images-toggle");
 

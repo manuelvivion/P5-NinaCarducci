@@ -1,4 +1,5 @@
 (function($) {
+  // ---------------------------------------
   $.fn.mauGallery = function(options) {
     var options = $.extend($.fn.mauGallery.defaults, options);
     var tagsCollection = [];
@@ -40,6 +41,9 @@
       $(this).fadeIn(500);
     });
   };
+  // -----------------------------------
+
+  // --- initialization ---
   $.fn.mauGallery.defaults = {
     columns: 3,
     lightBox: true,
@@ -48,9 +52,13 @@
     tagsPosition: "bottom",
     navigation: true
   };
+// --- End of Initialization ----
+
+// --- listeners management ---
   $.fn.mauGallery.listeners = function(options) {
+
+    // --- open carrousel (lightbox) on click on gallery image 
     $(".gallery-item").on("click", function() {
-     
       if (options.lightBox && $(this).prop("tagName") === "IMG") {
         $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
       } else {
@@ -58,15 +66,25 @@
       }
     });
 
-    $(".gallery").on("click", ".nav-link", $.fn.mauGallery.methods.filterByTag);
-    $(".gallery").on("click", ".mg-prev", () =>{
-      $.fn.mauGallery.methods.prevImage(options.lightboxId)}
-    );
-    $(".gallery").on("click", ".mg-next", () =>
-      $.fn.mauGallery.methods.nextImage(options.lightboxId)
-    );
-  };
+      // --- assign function "filterByTag" to Tags filters links
+      $(".gallery").on("click", ".nav-link", $.fn.mauGallery.methods.filterByTag);
+      
+      // --- assign prevImage Function to "left arrow" button of carrousel
+      $(".gallery").on("click", ".mg-prev", () =>{
+        $.fn.mauGallery.methods.prevImage(options.lightboxId)}
+      );
+      // --- assign nextImage Function to "right arrow" button of carrousel
+      $(".gallery").on("click", ".mg-next", () =>
+        $.fn.mauGallery.methods.nextImage(options.lightboxId)
+      );
+
+  }; //--- end of listeners management ---
+
+
+
+// --- list of Methods  ( = jquery functions )
   $.fn.mauGallery.methods = {
+    // --- Create Row Wrapper
     createRowWrapper(element) {
       if (
         !element
@@ -76,7 +94,9 @@
       ) {
         element.append('<div class="gallery-items-row row"></div>');
       }
-    },
+    }, // end of create Row wrapper
+
+    // --- Wrap Item Column (depending on screen size)
     wrapItemInColumn(element, columns) {
       if (columns.constructor === Number) {
         element.wrap(
@@ -105,21 +125,29 @@
           `Columns should be defined as numbers or objects. ${typeof columns} is not supported.`
         );
       }
-    },
+    },// end of Wrap Item Column
+
+    // ---
     moveItemInRowWrapper(element) {
       element.appendTo(".gallery-items-row");
-    },
+    },// end of
+
+    // ---
     responsiveImageItem(element) {
       if (element.prop("tagName") === "IMG") {
         element.addClass("img-fluid");
       }
-    },
+    }, // end of
+
+    // --- open lightBox (carrousel)
     openLightBox(element, lightboxId) {
       $(`#${lightboxId}`)
         .find(".lightboxImage")
         .attr("src", element.attr("src"));
       $(`#${lightboxId}`).modal("toggle");
-    },
+    },// end of open Lightbox
+
+    // --- display previous image in the current image list (all or filtered)
     prevImage() {
       let activeImage = null;
       $("img.gallery-item").each(function() {
@@ -163,7 +191,9 @@
       next = index === 0?imagesCollection[imagesCollection.length - 1]:imagesCollection[index-1] ;
 
       $(".lightboxImage").attr("src", $(next).attr("src"));
-    },
+    }, // end of Previous Image function
+
+    // --- Display Next Image in the current image list (all or filtered)
     nextImage() {
       let activeImage = null;
       $("img.gallery-item").each(function() {
@@ -206,7 +236,10 @@
       next = index === imagesCollection.length - 1?imagesCollection[0]:imagesCollection[index+1] ;
 
       $(".lightboxImage").attr("src", $(next).attr("src"));
-    },
+    },// end of Next Image
+
+
+    // --- create Light box, HTML (DOM) creation
     createLightBox(gallery, lightboxId, navigation) {
       gallery.append(`<div class="modal fade" id="${
         lightboxId ? lightboxId : "galleryLightbox"
@@ -229,7 +262,10 @@
                     </div>
                 </div>
             </div>`);
-    },
+    }, // end of light box creation
+
+
+    // --- show item tags ---
     showItemTags(gallery, position, tags) {
       var tagItems =
         '<li class="nav-item"><span class="nav-link active active-tag"  data-images-toggle="all">Tous</span></li>';
@@ -246,7 +282,9 @@
       } else {
         console.error(`Unknown tags position: ${position}`);
       }
-    },
+    }, //end of show item tags
+
+    // --- filter by tag function ---
     filterByTag() {
       if ($(this).hasClass("active-tag")) {
         return;
@@ -270,6 +308,10 @@
             .show(300);
         }
       });
-    }
-  };
+    } // end of filter by tag
+
+
+  }; // end of all methods (= functions)
+
+  
 })(jQuery);

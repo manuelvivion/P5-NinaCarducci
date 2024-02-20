@@ -6,7 +6,12 @@ body {
 	font-family: 'Inter';
 	font-style: normal;
 }
-.top-header {
+
+h2{
+	font-size: 30px;
+}
+
+nav {
 	background-color: white;
 	position: sticky;
 	top:0;
@@ -18,22 +23,22 @@ body {
 	align-items: center;
 }
 
-.top-header .name {
+nav .name {
 	font-size: 26px;
 }
 
-.nav ul {
+.menu-links ul {
 	display: flex;
 	list-style-type: none;
 	font-size: 14px;
 	margin-bottom: 0;
 }
 
-.nav li {
+.menu-links li {
 	padding-inline: 10px;
 }
 
-.nav a {
+.menu-links a {
 	text-decoration: none;
 	color: #000
 }
@@ -42,7 +47,7 @@ body {
 	width: 20px;
 }
 
-#about {
+.about {
 	display: flex;
 	background-color: #F6D2B8;
 	padding-inline: 100px;
@@ -71,7 +76,7 @@ body {
 	width: 100%;
 
 }
-#about-me {
+.about-me {
 	flex: 2
 }
 .about-me__title {
@@ -85,15 +90,15 @@ body {
 	font-style: italic;
 	width: 60%;
 	font-size: 1rem;
+	line-height: 1.2;
+	margin-bottom: 0.5rem;
 }
-#about-me p {
+.about-me__content{
 	width: 80%;
 	font-size: 14px;
 }
 
-#gallery {
-	/*	min-height: 100vh; */
-}
+
 .title{
 	text-align: center;
 	padding-block: 2em;
@@ -102,12 +107,13 @@ body {
 	justify-content: center;
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-	color: #fff;
+	color: #000;
 	background-color: #BEB45A;
 	border-radius:0 ;
 }
 .nav-pills .nav-link {
-	color: #000
+	color: #000;
+	cursor: pointer;
 }
 .item-column {
 	position: relative;
@@ -148,6 +154,8 @@ body {
 	font-family: Spectral;
 	font-style: italic;
 	font-weight: 300;
+	font-size: 2.5rem;
+	line-height: 1.2;
 
 }
 .quote__author {
@@ -156,12 +164,12 @@ body {
 	font-size: 22px;
 }
 
-#services {
+.services {
 	margin: auto;
 	background-color: #A8D5D8 ;
 	position: relative;
 }
-#services .container::before{
+.services .container::before{
 	content: ' ';
 	background-color: #1C6474;
 	position: absolute;
@@ -172,7 +180,7 @@ body {
 	z-index: 0;
 }
 
-#services .container {
+.services .container {
 	justify-content: space-between;
 	display: flex;
 	padding : 2em 0;
@@ -191,7 +199,14 @@ body {
 	z-index: 1;
 }
 
-#contact {
+.service__description h3{
+	font-size : 30px;
+}
+.service__price h3{
+	font-size : 24px;
+}
+
+.contact {
 	margin: auto;
 	background-color: #D8D3A8 ;
 	position: relative;
@@ -199,7 +214,7 @@ body {
 	padding-block: 100px;
 }
 
-#contact .container {
+.contact .container {
 	display: flex;
 }
 .picture.right::before {
@@ -249,20 +264,20 @@ input[type="submit"] {
 	.picture {
 		flex : 2;
 	}
-	#about, #contact .container {
+	.about, .contact .container {
 		align-items: center;
 	}
 	.about-me__title {
 		margin-top: 0;
 		margin-bottom: 1em;
 	}
-	#about-me h3, #about-me p {
+	.about-me p {
 		width: 100%;
 	}
 }
 
 @media all and (max-width: 1000px) {
-	#about{
+	.about{
 		flex-direction: column;
 
 	}
@@ -282,7 +297,7 @@ input[type="submit"] {
 		text-align: center;
 		margin-top: 1em;
 	}
-	#services .container {
+	.services .container {
 		flex-direction: column;
 	}
 	.service {
@@ -295,7 +310,7 @@ input[type="submit"] {
 		margin-bottom: 1em;
 	}
 
-	#services .container::before{
+	.services .container::before{
 		width: 30%;
 		height: 100%;
 		bottom: 0;
@@ -304,10 +319,10 @@ input[type="submit"] {
 		z-index: 0;
 	}
 
-	#contact .container {
+	.contact .container {
 		flex-direction: column;
 	}
-	#contact .picture.right {
+	.contact .picture.right {
 		margin-top: 1em;
 	}
 	.picture.right::before {
@@ -321,15 +336,15 @@ input[type="submit"] {
 }
 
 @media all and (max-width: 650px) {
-	.top-header {
+	nav {
 		flex-direction: column;
 		padding-inline: 0;
 	}
-	.top-header .nav, .top-header .nav ul {
+	nav .menu-links, nav .menu-links ul {
 		width: 100%;
 		padding: 0 0 0 0;
 	}
-	.top-header .nav li {
+	nav .menu-links li {
 		flex: 1;
 		padding-block: 1em;
 		text-align: center;
@@ -337,13 +352,13 @@ input[type="submit"] {
 	.picture.left::before, .picture.right::before {
 		height: 150px;
 	}
-	#services .container {
+	.services .container {
 		align-items: center;
 	}
 	.service {
 		max-width: 90%;
 	}
-	#about, #contact {
+	.about, .contact {
 		padding-inline: 2em;
 		padding-block: 2em;
 	}

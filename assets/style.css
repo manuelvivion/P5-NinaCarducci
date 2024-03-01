@@ -205,7 +205,7 @@ nav .name {
 .service__description h3{
 	font-size : 30px;
 }
-.service__price p{
+.service__price h4{
 	font-size : 24px;
 }
 

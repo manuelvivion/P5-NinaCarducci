@@ -132,6 +132,7 @@ nav .name {
 	height: 100%;
 	object-fit: cover;
 	padding: .5em;
+	cursor: pointer;
 }
 .mg-prev, .mg-next {
 	width: 30px;
@@ -159,6 +160,8 @@ nav .name {
 
 }
 .quote__author {
+	display:block;
+	margin-top: 1rem;
 	font-family: Spectral;
 	font-weight: 800;
 	font-size: 22px;
@@ -202,7 +205,7 @@ nav .name {
 .service__description h3{
 	font-size : 30px;
 }
-.service__price h3{
+.service__price p{
 	font-size : 24px;
 }
 
@@ -258,6 +261,37 @@ form textarea {
 input[type="submit"] {
 	background-color: #BEB45A;
 	padding: .5em 1em
+}
+
+footer{
+	background-color: black;
+	color:#fefefe;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding:64px;
+	align-items: baseline;
+}
+.footer-intro,.footer-adress{
+	width:50%;
+	padding:16px;
+}
+
+.footer-intro p{
+	text-align: justify;
+	font-size: 0.8rem;
+}
+.footer-intro h3{
+	color: #D8D3A8;
+	font-size: 18px;
+}
+
+.footer-adress p{
+	color: #D8D3A8;
+}
+
+.footer-adress p span{
+	color: white;
 }
 
 @media all and (max-width: 1180px) {
@@ -367,6 +401,14 @@ input[type="submit"] {
 	}
 	.picture {
 		width: 80%;
+	}
+	footer{
+		flex-direction: column;
+		justify-content: center;
+		align-items: baseline;
+	}
+	.footer-intro,.footer-adress{
+		width:100%;
 	}
 }
 
